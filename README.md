@@ -22,3 +22,9 @@
 - next.js에선 정적으로 앱에 있는 페이지들이 초기 상태로 미리 렌더링된다.
   - 느린 연결이나 자바스크립트가 비활성화 되어 있어도 적어도 HTML은 볼 수 있다.(API를 통해 가져오는 정보는 제외)
   - hydration : nextjs의 서버에서 페이지를 만들고 rendering이 끝나면 HTML을 만드는데 이를 페이지의 소스 코드에 넣어준다. 그 후 react.js가 로딩되었을 때 상호작용이 가능한 react 앱이 된다. 여기서 자바스크립트 코드들이 이전에 있던 HTML에 자리를 찾아 채워지는 과정이 hydration(수화)이다.
+
+# Routing
+
+- nextjs에서는 새로고침이 발생되는 \<a> tag를 사용하지 않고 Link component를 추가하여 href를 달아주고 그 안에 \<a> 태그를 넣어주어 style, className 등을 사용한다.
+  `<Link href="/"><a>링크</a></Link>`
+- useRouter hook : location에 대한 정보(pathname, asPath, push ...)를 담고 있는 router 객체를 얻을 수 있다.
