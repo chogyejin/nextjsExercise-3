@@ -44,3 +44,9 @@
 - 해당 component에 직접 CSS를 작성하는 nextjs의 라이브러리로 파일을 import하지 않아도 되고, 부모 component와 독립적으로 사용되기 때문에 스타일들이 이 component로 한정된다.
 - 클래스 이름이 jsx-~~~로 생성되어 충돌이 생기지 않는다.
 - \<style> 태그 안에 jsx라는 프로퍼티를 주고 {` `} 안에 작성
+
+# Custom App
+
+- nextjs는 pages 폴더의 페이지들을 렌더링 하기 전에 \_app.tsx를 확인하고 App() 함수의 두 가지 props(Component(active page), pageProps)를 확인한다.
+  - 렌더링하려는 component를 가져다가 \_app.tsx의 App() 함수에 전달하고 return 함
+- \_app.tsx를 통해 global하게 NavBar 모든 페이지에 적용 가능, global css import 가능(custom App 외의 component에서는 import 안됨), styled jsx global 예외(index.tsx) 없이 적용 가능
