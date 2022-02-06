@@ -28,3 +28,19 @@
 - nextjs에서는 새로고침이 발생되는 \<a> tag를 사용하지 않고 Link component를 추가하여 href를 달아주고 그 안에 \<a> 태그를 넣어주어 style, className 등을 사용한다.
   `<Link href="/"><a>링크</a></Link>`
 - useRouter hook : location에 대한 정보(pathname, asPath, push ...)를 담고 있는 router 객체를 얻을 수 있다.
+
+# CSS module
+
+- CSS module은 클래스 이름을 추가할 때 텍스트가 아닌 자바스크립트 오브젝트의 프토퍼티로 작성
+  - className="nav"는 동작하지 않음, className={styles.nav}로 작성
+  - 개발자 도구에서 실제 클래스 이름을 확인해보면 NavBar_nav\_~~~ 와 같이 되어 있어 충돌이 생기지 않는다(다른 component에서도 nav라는 클래스 이름을 사용할 수 있다).
+  - 여러 클래스를 넣고 싶을 경우
+    1. \`\` 안에 ${표현식}, \`\${style1} \${style2}\`
+    2. 배열을 문자열로 합치기, [style1, style2].join(" ")으로
+- 단점 : 파일을 분리해야 하고 왔다갔다하며 클래스 이름을 확인해야 함
+
+# Styled JSX
+
+- 해당 component에 직접 CSS를 작성하는 nextjs의 라이브러리로 파일을 import하지 않아도 되고, 부모 component와 독립적으로 사용되기 때문에 스타일들이 이 component로 한정된다.
+- 클래스 이름이 jsx-~~~로 생성되어 충돌이 생기지 않는다.
+- \<style> 태그 안에 jsx라는 프로퍼티를 주고 {` `} 안에 작성
