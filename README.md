@@ -58,3 +58,10 @@
   - \_app.tsx에서 Layout component의 prop으로 사용된 <Component {...pageProps}> 가 Layout.tsx의 children으로 들어감
 
 - reactjs의 react helmet을 설치하는 것처럼 nextjs에선 Head를 next/head를 import하여 사용햔다.
+
+# Props type
+
+- typescript를 사용하는 function component에서 props를 넘길 때 props 객체 자체를 넘기거나 destructuring을 사용해서 간단히 넘길 수 있다.
+  1. 객체 그대로를 넘길 때는 function func(props: type), props.something 으로 사용
+  2. destructuring을 해서 넘길 때는 function func({ something }: { something: type }), something 바로 사용 가능
+     - interface FuncProps { something: type } 를 이용하여 type 부분 FuncProps로 대체 가능
