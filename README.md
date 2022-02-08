@@ -65,3 +65,12 @@
   1. 객체 그대로를 넘길 때는 function func(props: type), props.something 으로 사용
   2. destructuring을 해서 넘길 때는 function func({ something }: { something: type }), something 바로 사용 가능
      - interface FuncProps { something: type } 를 이용하여 type 부분 FuncProps로 대체 가능
+
+# Fetching Data
+
+- developers.themoviedb.org의 API를 이용하여 영화 데이터를 가져온다.
+- movies를 useState를 이용하여 set할 때 초기값을 주지 않으면 undefined가 되기 때문에 map() 함수를 사용할 수 없음
+  - movies가 존재하는지 확인 후 map()을 하거나
+  - movies?.map()으로 사용하면 가능
+- API key가 개발자도구 Network 탭의 Request URL에 노출되어 남용 시 사용량 제한에 관한 문제가 생길 수 있다.
+  - redirect와 rewrite로 해결
