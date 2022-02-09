@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import Seo from "../components/Seo";
 
-const API_KEY = "cb133c2b936ee64539591091a518834d";
-
 interface IMovie {
   poster_path: string | null;
   adult: boolean;
@@ -26,11 +24,7 @@ export default function Home() {
   useEffect(() => {
     (async () => {
       // { results } = data.results
-      const { results } = await (
-        await fetch(
-          `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=1`
-        )
-      ).json();
+      const { results } = await (await fetch(`/api/movies`)).json(); // fake url
       setMovies(results);
     })();
   }, []);
