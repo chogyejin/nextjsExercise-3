@@ -101,7 +101,7 @@
   },
   ```
 
-# Rewrite
+## Rewrite
 
 - nextjs가 request url을 masking하여 경로(api path 등)를 rewrite 하여 숨길 수 있다.
 - 사용자가 url의 변화를 알 수 없음
@@ -118,3 +118,14 @@
     ];
   },
   ```
+
+# Server Side Rendering(SSR)
+
+- 데이터가 유효할 때 보여주기(SSR) vs loading 보여주며 데이터 가져오기(static shell 등)
+  - 초기 페이지인 index.tsx에서 사용
+- server에서만 동작하는 코드 작성(client에서 볼 수 없음)
+- getServerSideProps()는 하나의 object를 return하는데 props라는 key가 있고 props는 데이터를 가지는 object이다.
+  - return 하는 props를 페이지에게 전달, 여기서 props가 \_app.tsx의 pageProps로써 넘어간다.
+  - props는 소스에서 \_\_NEXT_DATA\_\_라는 id로 넘겨지고, reactjs가 로딩된 후 모든 state를 관리하며 상호작용할 수 있게 한다.
+- HTML 소스(option+command+U)에 가져온 데이터로 채워져있음(SEO에 유리)
+- API load가 느리다면 다 가져올 때까지 사용자가 loading.. 없이 비어진 화면으로 오래 기다려야함
