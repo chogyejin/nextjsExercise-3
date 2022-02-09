@@ -19,7 +19,7 @@
 
 - create react app은 기본적으로 CSR(Client-Side Rendering)이다.
   - CSR : 유저가 보는 UI를 모두 브라우저가 만든다. 비어있는 HTML을 가져오고 브라우저가 모든 자바스크립트를 요청해서 자바스크립트와 reactjs를 실행시키고 그 후에 앱이 유저에게 보여진다. 이때 느린 연결(Slow 3G)을 하게 되면 흰 화면을 볼 수도 있는데 이때 자바스크립트를 요청하는 중인 것
-- next.js에선 정적으로 앱에 있는 페이지들이 초기 상태로 미리 렌더링된다.
+- nextjs에선 정적으로 앱에 있는 페이지들이 초기 상태로 미리 렌더링된다.
   - 느린 연결이나 자바스크립트가 비활성화 되어 있어도 적어도 HTML은 볼 수 있다.(API를 통해 가져오는 정보는 제외)
   - hydration : nextjs의 서버에서 페이지를 만들고 rendering이 끝나면 HTML을 만드는데 이를 페이지의 소스 코드에 넣어준다. 그 후 reactjs가 로딩되었을 때 상호작용이 가능한 react 앱이 된다. 여기서 자바스크립트 코드들이 이전에 있던 HTML에 자리를 찾아 채워지는 과정이 hydration(수화)이다.
 
@@ -74,3 +74,47 @@
   - movies?.map()으로 사용하면 가능
 - API key가 개발자도구 Network 탭의 Request URL에 노출되어 남용 시 사용량 제한에 관한 문제가 생길 수 있다.
   - redirect와 rewrite로 해결
+
+# Redirect and Rewrite
+
+## Redirect
+
+- next.config.js에서 설정을 통해 redirect를 할 수 있다.
+- 사용자가 url의 변화를 눈으로 확인 가능
+- 사용 방법
+  - 객체 배열을 리턴하는 async redirects() 함수를 module.exports 객체 안에 작성
+  - pattern matching 가능
+    - "/example1/:example2" : example2에 유동적인 path
+    - "/example1/:example2\*" : example1/ 뒤 모두 catch
+  ```
+  async redirects() {
+    return [
+      {
+        source: "여기에 왔을 때",
+        destination: "여기로 보내줌",
+        permanent: false, // caching
+      },
+      {
+        // ...
+      },
+    ];
+  },
+  ```
+
+# Rewrite
+
+- nextjs가 request url을 masking하여 경로(api path 등)를 rewrite 하여 숨길 수 있다.
+- 사용자가 url의 변화를 알 수 없음
+- 사용 방법
+  - async rewrites() 함수 작성
+  - API_KEY를 숨기는 게 목적이므로 .env에 API_KEY=~~로 환경 변수 작성
+  ```
+  async rewrites() {
+    return [
+      {
+        source: "여기로 왔을 때", // 가짜 url
+        destination: `여기로 보내줌`, // 실제 요청하는 url
+      },
+    ];
+  },
+  ```
