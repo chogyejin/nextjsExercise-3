@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import Seo from "../components/Seo";
 
 interface IMovie {
@@ -23,13 +24,44 @@ interface HomeProps {
 }
 
 export default function Home({ results }: HomeProps) {
+  const router = useRouter();
+
+  function onClick(id: number, title: string) {
+    router.push(
+      {
+        pathname: `/movies/${id}`,
+        query: {
+          // path의 router 객체에 넘길 query string
+          title,
+        },
+      },
+      `/movies/${id}` // masking url
+    );
+  }
   return (
     <div className="container">
       <Seo title="Home" />
       {results.map((movie) => (
-        <div className="movie" key={movie.id}>
+        <div
+          className="movie"
+          onClick={() => onClick(movie.id, movie.original_title)}
+          key={movie.id}
+        >
           <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} />
-          <h4>{movie.original_title}</h4>
+          <Link
+            href={{
+              pathname: `/movies/${movie.id}`,
+              query: {
+                // path의 router 객체에 넘길 query string
+                title: movie.original_title,
+              },
+            }}
+            as={`/movies/${movie.id}`}
+          >
+            <a>
+              <h4>{movie.original_title}</h4>
+            </a>
+          </Link>
         </div>
       ))}
       <style jsx>{`
