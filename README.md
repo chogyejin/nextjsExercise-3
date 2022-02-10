@@ -135,7 +135,20 @@
 - pages 폴더에 [변수명].tsx로 이름을 지어준다.
 - 변수명으로 활용한 페이지에서 useRouter()를 이용해 router 객체를 확인해보면, query라는 property가 있고 여기에 변수와 url 값이 담겨있다.
 - 활용
+
   1. 사용자가 클릭 했을 때만 넘어가는 Link component 이용
   2. 이벤트(onClick 등) 안에 router.push() 이용
+
   - routing을 할 때 url string을 담을 수도 있지만 url 정보를 가진 객체도 담을 수 있고, 두 번째 prop(Link) 혹은 argument(router.push)로는 masking할 url을 적을 수 있다(query string 숨기기 가능).
   - Home에서 [id] 페이지로 넘어갔을 때에만 router 정보를 받을 수 있다.
+
+# Catch all url
+
+- component 내부에 있는 router는 client-side에서만 동작하기 때문에, 초기에 pre-render 해서 보내준 HTML에는 router.query.~~ 가 배열이 아닐 수 있기 때문에 || [](초기 빈 배열)로 에러를 해결하고 js가 도착했을 때 router 내용을 가져가게 한다(영화 상세 페이지).
+
+- SEO에 더 유리하게 하거나 사용자가 접속하기 전에 탭의 제목(title)을 바꾸거나 하는 pre-render 동작을 원한다면 getServerSideProps()를 이용하여 server-side에서 받아오자
+
+# tsconfig.json
+
+- Typescript compiler 옵션에 대해 설정할 수 있는데 target을 es6로 올리면 es3, es5 보다 나중에 나온 문법을 사용할 수 있다.
+- 여기서는 target을 es5로 하는 대신, downlevelIteration을 허용하여 destructuring을 사용 가능하게 했다.
