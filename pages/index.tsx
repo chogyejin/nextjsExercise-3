@@ -27,16 +27,7 @@ export default function Home({ results }: HomeProps) {
   const router = useRouter();
 
   function onClick(id: number, title: string) {
-    router.push(
-      {
-        pathname: `/movies/${id}`,
-        query: {
-          // path의 router 객체에 넘길 query string
-          title,
-        },
-      },
-      `/movies/${id}` // masking url
-    );
+    router.push(`/movies/${title}/${id}`);
   }
   return (
     <div className="container">
@@ -48,16 +39,7 @@ export default function Home({ results }: HomeProps) {
           key={movie.id}
         >
           <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} />
-          <Link
-            href={{
-              pathname: `/movies/${movie.id}`,
-              query: {
-                // path의 router 객체에 넘길 query string
-                title: movie.original_title,
-              },
-            }}
-            as={`/movies/${movie.id}`}
-          >
+          <Link href={`/movies/${movie.original_title}/${movie.id}`}>
             <a>
               <h4>{movie.original_title}</h4>
             </a>
